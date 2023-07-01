@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script src="./index.js" defer></script>
+    <title>WeatherApp</title>
+</head>
+<body>
+    <div class="weathermain">
+    <h1 class="heading">WEATHER</h1>
+    <div class="main">
+       <div class="card">
+        <div class="searchbox">
+            <input type="text" placeholder="Enter your city" class="citySearch" required>
+            <button class="search"><i class="fa-solid fa-magnifying-glass-location fa-fade btnImg"></i></button>
+        </div>
+       <div class="cardDetails"> 
+    <div class="cardtitle">
+        <h1 class="city"></h1>
+        <h3 class="country"></h3>
+    </div>
+    <div class="summary">
+        
+        <h2 class="temp"></h2>
+    </div>
+    <div class="data">
+        <div class="imgSec">
+        <img class="icon" src="" alt="">
+    <h2 class="main_desc"></h2>
+</div>
+    <div class="dataTemp">
+        <img src="./images/humidity.png" alt="" class="iconTemp">
+        <div class="humidWind"> <h4 class="humidity"></h4>
+        <p>Humidity</p>
+    </div>
+        <img src="./images/wind.png" alt="" class="iconTemp">
+        <div class="humidWind">
+        <h4 class="wind"></h4>
+        <p>Wind speed</p>
+    </div>
+    </div>
+    </div>
+    </div>
+</div>
+</div>
+</div>
+<div class="newsMain">
+    <h1 class="heading">NEWS</h1>
+    <div class="mainNews main">
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,187 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,400;0,500;0,600;0,700;1,200&display=swap');
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #262626;
+    margin: 0;
+    padding: 0;
+}
+::placeholder{
+    color: white;
+}
+.main {
+    width: 80%;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #303030;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+    text-align: center;
+}
+
+.card {
+    padding: 20px;
+    border-bottom: 1px solid #4a4a4a;
+}
+
+.searchbox {
+    display: flex;
+    align-items: center;
+    justify-content: start;
+    margin-bottom: 20px;
+}
+
+.citySearch {
+    padding: 10px;
+    width: 200px;
+    border: none;
+   background-color: #262626;
+    background-color: transparent;
+    color: #fff;
+    font-size: 16px;
+    outline: none;
+    transition: all 1s ease;
+}
+.citySearch:focus,.citySearch:hover{
+    border: 1px solid white;
+    transform: scale(1.1);
+    margin-right: 2%;
+}
+
+
+.search {
+    padding: 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 1s ease;
+}
+.search:hover,.search:focus{
+    color: white;
+    transform: scale(1.2) rotate(360deg);
+}
+i{
+    font-size: 2em;
+    color: white;
+}
+
+.cardtitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.city {
+    font-size: 40px;
+    color: #fff;
+    margin: 0;
+}
+
+.country {
+    font-size: 16px;
+    color: #b3b3b3;
+    margin: 0;
+}
+
+.summary {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.main_desc {
+    font-size: 24px;
+    color: #fff;
+    margin: 0;
+}
+
+.temp {
+    font-size: 64px;
+    color: #fff;
+    margin: 0;
+}
+
+.data {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.icon {
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+}
+
+.dataTemp {
+    display: flex;
+    align-items: center;
+}
+
+.iconTemp {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.humidWind {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 15px;
+}
+
+.humidWind h4 {
+    font-size: 16px;
+    color: #fff;
+    margin: 0;
+}
+
+.humidWind p {
+    font-size: 12px;
+    color: #b3b3b3;
+    margin: 0;
+}
+button{
+    cursor: pointer;
+}
+.imgSec{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.cardDetails{
+    display: none;
+}
+.active{
+    display: contents;
+}
+.invisible{
+    display: none;
+}
+.heading{
+    text-align: center;
+    color: white;
+    font-size: 2.5em;
+}
+.mainNews{
+    color: white;
+}
+.newsCard{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content:space-evenly;
+    margin-top: 2%;
+}
+.newsTitle{
+    font-size: 2em;
+}
+.newsLink{
+    font-size:25px;
+    transition: all 1s ease;
+}
+.newsLink:hover,.newsLink:active,.newsLink:focus{
+   transform: scale(1.2) rotate(360deg);
+}

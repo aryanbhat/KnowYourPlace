@@ -8,6 +8,10 @@ body {
 ::placeholder{
     color: white;
 }
+.skymain{
+    background:linear-gradient(#2E8A99,#1F6E8C,#0E2954);
+}
+
 .main {
     width: 80%;
     margin: 0 auto;

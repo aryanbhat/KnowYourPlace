@@ -1,3 +1,4 @@
+//All variables declared;
 const key = "47b542aba39d9abd0cd5b7d37d36077d";
 const icon = document.querySelector('.icon');
 const city = document.querySelector('.city');
@@ -9,11 +10,12 @@ const main_desc = document.querySelector('.main_desc');
 const desc = document.querySelector('.description');
 const inputSearch = document.querySelector('.citySearch');
 const submit = document.querySelector('.search')
-const newsKey ='4oJ3eKwJ493gWBACutlc_vIH8jbC499gAHis8O6-vUw';
+const newsKey ='tgsGgSRAWNO1RlKKQhQdDIE1rhqFu3zXZVMY0Nyovc8';
 const cardDetails = document.querySelector('.cardDetails');
 const mainNews = document.querySelector('.mainNews')
 const newsMain = document.querySelector('.newsMain');
 
+//main api fetch which fetches weather info using city name
 function getDataByCity(cityname){
     fetch("https://api.openweathermap.org/data/2.5/weather?q=" +
     cityname +
@@ -21,27 +23,35 @@ function getDataByCity(cityname){
     key).then(callback)
 }
 
+//Api call which fetches latitude and longitude from zip code
 function getDataByZip(zip){
     fetch("http://api.openweathermap.org/geo/1.0/zip?zip=" +
     zip +
     "&units=metric&appid=" +
-    key).then(getCityName)
+    key).then(getCityName).catch((err)=>{
+        console.error(err);
+    })
 }
 
+//Did reverse geocoding which gives city name using latitude and longitude
 function getCity(lat,lon){
     fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${key}`).then((res)=>{
         res.json().then((data)=>{
             getDataByCity(data[0].name);
+        }).catch((err)=>{
+            console.log("reverse geocoding api doesn't work");
         })
     })
 }
 
+//callback of the zip fetch 
 function getCityName(res){
     res.json().then((data)=>{
         getCity(data.lat,data.lon);
     })
 }
 
+//main callback of fetch using openweathermap API
 function callback(res){
     res.json().then((data)=>{
         let iconDesc = data.weather[0].main;
@@ -76,7 +86,7 @@ function callback(res){
     });
 }
 
-
+//using Geofy location IP whih fetches the first location of the user using their IP address. It is not 100% accurate.
 function getfirstLocationIP(){
     fetch("https://api.geoapify.com/v1/ipinfo?&apiKey=cd74afa22743492591790e73d9eb7c21").then((res)=>{
         res.json().then((data)=>{
@@ -85,13 +95,15 @@ function getfirstLocationIP(){
     })
 }
 
+//function to check if the given string is a valid number or not to be used for zip code.
 function checkNum(str){
     return !isNaN(str);
 }
 
+//added eventListener for the button 
 submit.addEventListener('click',(e)=>{
     const loc = inputSearch.value;
-    if(checkNum){
+    if(checkNum(loc)){
         getDataByZip(loc);
     }
     else{
@@ -99,6 +111,7 @@ submit.addEventListener('click',(e)=>{
     }
 })
 
+//added eventListener for the enter key press
 window.addEventListener('keyup',(e)=>{
     if(e.key == 'Enter'){
         if(checkNum(inputSearch.value)){
@@ -110,6 +123,7 @@ window.addEventListener('keyup',(e)=>{
     }
 })
 
+//API newscatcher fetches the news based of country
 function getNews(country){
    mainNews.innerHTML = "";
    fetch(`https://api.newscatcherapi.com/v2/latest_headlines?countries=${country}`,{
@@ -123,11 +137,13 @@ function getNews(country){
             }
         })
    }).catch((err)=>{
+    newsMain.innerHTML = "";
     mainNews.classList.add('invisible');
+    console.log(err);
    })
 }
 
-
+//function to dynamically make DOM for DOM-manipulation
 function showNews(data){
     const newDiv = document.createElement('div');
     newDiv.classList.add('newsCard');
@@ -149,4 +165,6 @@ function showNews(data){
     newsMain.classList.remove('invisible');
 }
 newsMain.classList.add('invisible');
+
+//Initial call for all the program to start fetching data synchronously ..
 getfirstLocationIP();

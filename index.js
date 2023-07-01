@@ -9,7 +9,7 @@ const main_desc = document.querySelector('.main_desc');
 const desc = document.querySelector('.description');
 const inputSearch = document.querySelector('.citySearch');
 const submit = document.querySelector('.search')
-const newsKey ='d058e50b3e824a54a2e1db3fb4e49202';
+const newsKey ='4oJ3eKwJ493gWBACutlc_vIH8jbC499gAHis8O6-vUw';
 const cardDetails = document.querySelector('.cardDetails');
 const mainNews = document.querySelector('.mainNews')
 const newsMain = document.querySelector('.newsMain');
@@ -19,6 +19,28 @@ function getDataByCity(cityname){
     cityname +
     "&units=metric&appid=" +
     key).then(callback)
+}
+
+function getDataByZip(zip){
+    fetch("http://api.openweathermap.org/geo/1.0/zip?zip=" +
+    zip +
+    "&units=metric&appid=" +
+    key).then(getCityName)
+}
+
+function getCity(lat,lon){
+    fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${key}`).then((res)=>{
+        res.json().then((data)=>{
+            console.log(data);
+            getDataByCity(data[0].name);
+        })
+    })
+}
+
+function getCityName(res){
+    res.json().then((data)=>{
+        getCity(data.lat,data.lon);
+    })
 }
 
 function callback(res){
@@ -44,7 +66,6 @@ function callback(res){
         }
         city.innerHTML = data.name;
         country.innerHTML = data.sys.country;
-        getNews(data.sys.country);
         main_desc.innerHTML = data.weather[0].main;
         temp.innerHTML = Math.floor(data.main.temp) + " &degC";
         humidity.innerHTML =data.main.humidity;
@@ -59,36 +80,50 @@ function callback(res){
 function getfirstLocationIP(){
     fetch("https://api.geoapify.com/v1/ipinfo?&apiKey=cd74afa22743492591790e73d9eb7c21").then((res)=>{
         res.json().then((data)=>{
+            console.log(data.city.name);
             getDataByCity(data.city.name);
         })
     })
 }
 
+function checkNum(str){
+    return !isNaN(str);
+}
 
 submit.addEventListener('click',(e)=>{
     const loc = inputSearch.value;
+    if(checkNum){
+        getDataByZip(loc);
+    }
+    else{
     getDataByCity(loc);
+    }
 })
 
 window.addEventListener('keyup',(e)=>{
     if(e.key == 'Enter'){
+        if(checkNum(inputSearch.value)){
+            getDataByZip(inputSearch.value);
+        }
+        else{
         getDataByCity(inputSearch.value);
+        }
     }
 })
 
 function getNews(country){
    mainNews.innerHTML = "";
-   const options ={
-    method: "GET",
-    headers: {'Content-Type':'application/json',
-    'country':country},
-   }
-   fetch('http://localhost:3000/newsData',options).then((res)=>{
-    res.json().then((data)=>{
-        for(let i = 0;i<data.articles.length;i++){
-            showNews(data.articles[i]);
-        }
-    })
+   fetch(`https://api.newscatcherapie.com/v2/latest_headlines?countries=${country}`,{
+    method: 'GET',
+    headers: {'x-api-key': newsKey}
+   }).then((res)=>{
+        res.json().then((data)=>{
+            for(let i=0;i<Math.min(15,data.page_size);i++){
+                showNews(data.articles[i]);
+            }
+        })
+   }).catch((err)=>{
+    mainNews.classList.add('invisible');
    })
 }
 
@@ -106,7 +141,7 @@ function showNews(data){
     url.setAttribute('target','blank');
     url.innerHTML = '<i class="fa-solid fa-circle-info newsLink"></i>';
     url.classList.add('newsLink');
-    url.setAttribute('href',data.url);
+    url.setAttribute('href',data.link);
     newDiv.appendChild(title);
     newDiv.appendChild(url);
     newDiv.appendChild(hr);

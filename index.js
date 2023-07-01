@@ -31,7 +31,6 @@ function getDataByZip(zip){
 function getCity(lat,lon){
     fetch(`http://api.openweathermap.org/geo/1.0/reverse?lat=${lat}&lon=${lon}&limit=1&appid=${key}`).then((res)=>{
         res.json().then((data)=>{
-            console.log(data);
             getDataByCity(data[0].name);
         })
     })
@@ -66,6 +65,7 @@ function callback(res){
         }
         city.innerHTML = data.name;
         country.innerHTML = data.sys.country;
+        getNews(data.sys.country);
         main_desc.innerHTML = data.weather[0].main;
         temp.innerHTML = Math.floor(data.main.temp) + " &degC";
         humidity.innerHTML =data.main.humidity;
@@ -80,7 +80,6 @@ function callback(res){
 function getfirstLocationIP(){
     fetch("https://api.geoapify.com/v1/ipinfo?&apiKey=cd74afa22743492591790e73d9eb7c21").then((res)=>{
         res.json().then((data)=>{
-            console.log(data.city.name);
             getDataByCity(data.city.name);
         })
     })
@@ -113,11 +112,12 @@ window.addEventListener('keyup',(e)=>{
 
 function getNews(country){
    mainNews.innerHTML = "";
-   fetch(`https://api.newscatcherapie.com/v2/latest_headlines?countries=${country}`,{
+   fetch(`https://api.newscatcherapi.com/v2/latest_headlines?countries=${country}`,{
     method: 'GET',
     headers: {'x-api-key': newsKey}
    }).then((res)=>{
         res.json().then((data)=>{
+            console.log(data);
             for(let i=0;i<Math.min(15,data.page_size);i++){
                 showNews(data.articles[i]);
             }
@@ -146,6 +146,7 @@ function showNews(data){
     newDiv.appendChild(url);
     newDiv.appendChild(hr);
     mainNews.appendChild(newDiv);
-
+    newsMain.classList.remove('invisible');
 }
+newsMain.classList.add('invisible');
 getfirstLocationIP();

@@ -63,7 +63,7 @@ The project is licensed under the [MIT License](LICENSE).
 
 ## Contact
 
-If you have any questions or suggestions, feel free to reach out to the project maintainer at [your-email@example.com](mailto:aryanbhat324@gmail.com).
+If you have any questions or suggestions, feel free to reach out to the project maintainer at [aryanbhat324@gmail.com](mailto:aryanbhat324@gmail.com).
 
 ---
 
